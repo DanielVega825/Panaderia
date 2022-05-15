@@ -13,6 +13,22 @@ router.get('/notes/agregarProductos', isAuthenticated, (req,res) => {
     res.render('./notes/agregarProducto');
 });
 
+router.get('/notes/edit/:id', isAuthenticated, async(req,res) => {
+    const producto = await Producto.findById(req.params.id);
+    res.render('notes/editProducto',{producto});
+});
+
+router.put('/notes/edit-producto/:id', isAuthenticated, async(req,res) => {
+    const {producto,categoria,ubicacion,precio} = req.body;
+    await Producto.findByIdAndUpdate(req.params.id,{producto,categoria,ubicacion,precio});
+    res.redirect('/notes');
+});
+
+router.delete('/notes/delete/:id', isAuthenticated, async(req,res) => {
+    await Producto.findByIdAndDelete(req.params.id);
+    res.redirect('/notes');
+});
+
 router.post('/notes/agregarProductos', isAuthenticated, async (req,res) => {
     const {producto,categoria,ubicacion,precio} =req.body;
     const errors = [];
