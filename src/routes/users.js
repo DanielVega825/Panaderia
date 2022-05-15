@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/users')
 const passport = require('passport'); 
+const req = require('express/lib/request');
 
 router.get('/users/signin', (req,res) => {
     res.render('users/signin');
@@ -55,5 +56,10 @@ router.post('/users/signup', async(req,res) => {
     }
     
 });
+
+router.get('/users/logout', (req,res) => {
+    req.logOut();
+    res.redirect('/');
+})
 
 module.exports = router;

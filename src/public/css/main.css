@@ -8,3 +8,8 @@ body {
 .logo{
     width: 20%;
 }
+
+.fa-solid{
+    cursor: pointer;
+    margin-left: 7px;
+}
