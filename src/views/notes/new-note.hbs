@@ -15,19 +15,19 @@
       
     <tr>
       <th scope="col">Producto</th>
-      <th scope="col">Categoria</th>
-      <th scope="col">Ubicacion</th>
-      <th scope="col">Precio</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Precio Unitario</th>
+      <th scope="col">Descripcion</th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-      {{#each productos}}
+      {{#each products}}
     <tr>
-      <th>{{producto}}</th>
-      <td>{{categoria}}</td>
-      <td>{{ubicacion}}</td>
-      <td>{{precio}}</td>
+      <th>{{name}}</th>
+      <td>{{size}}</td>
+      <td>{{unitaryPrice}}</td>
+      <td>{{description}}</td>
 
       <td> 
         <form action="/notes/delete/{{_id}}?_method=DELETE" method="POST">

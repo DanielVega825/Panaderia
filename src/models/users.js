@@ -6,6 +6,9 @@ const UserSchema = new Schema({
     name: {type: String, required: true},
     email: {type: String, required: true},
     password: {type: String, required: true},
+    descripcion :{type: String, required : false},
+    contacto :[{direccion: {trype:String, required:false}},{telefono:{type:String, required:false}}],
+    productos :{type:Schema.Types.ObjectId,refs:'productos'},
     date: {type: Date, default: Date.now}
 });
 

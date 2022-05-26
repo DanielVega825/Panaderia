@@ -1,13 +1,11 @@
 const express = require('express');
-
+const upload = require('../libs/storage')
 const router = express.Router();
 const {isAuthenticated} = require('../helpers/auth');
-const Producto = require('../models/producto');
+const {getProducts, addProduct} = require('../controllers/productController');
+const Producto = require('../models/producto')
 
-router.get('/notes', isAuthenticated, async (req,res) => {
-    const productos = await Producto.find();
-    res.render('./notes/new-note',{productos});
-});
+router.get('/notes', isAuthenticated, getProducts);
 
 router.get('/notes/agregarProductos', isAuthenticated, (req,res) => {
     res.render('./notes/agregarProducto');
@@ -19,8 +17,8 @@ router.get('/notes/edit/:id', isAuthenticated, async(req,res) => {
 });
 
 router.put('/notes/edit-producto/:id', isAuthenticated, async(req,res) => {
-    const {producto,categoria,ubicacion,precio} = req.body;
-    await Producto.findByIdAndUpdate(req.params.id,{producto,categoria,ubicacion,precio});
+    const {name,size,unitaryPrice,description} = req.body;
+    const productosPanaderia = await Producto.findByIdAndUpdate(req.params.id,{name,size,unitaryPrice,description});
     res.redirect('/notes');
 });
 
@@ -29,38 +27,7 @@ router.delete('/notes/delete/:id', isAuthenticated, async(req,res) => {
     res.redirect('/notes');
 });
 
-router.post('/notes/agregarProductos', isAuthenticated, async (req,res) => {
-    const {producto,categoria,ubicacion,precio} =req.body;
-    const errors = [];
-    if(!producto) {
-        errors.push({text: 'por favor, llene los campos'});
-    }
-    if(!categoria) {
-        errors.push({text: 'por favor, llene los campos Categoria'});
-    }
-    if(!ubicacion) {
-        errors.push({text: 'por favor, llene los campos ubicacion'});
-    }
-    if(!precio) {
-        errors.push({text: 'por favor, llene los campos precio'});
-    }
-    
-    if(errors.length > 0){
-        console.log(errors.length);
-        res.render('notes/agregarProducto',{
-            errors,
-            producto,
-            categoria,
-            ubicacion,
-            precio
-        });
-    }else{
-        const newProducto = new Producto({producto,categoria,ubicacion,precio});
-        await newProducto.save();
-        res.redirect('/notes');
-    }
-
-});
+router.post('/notes/agregarProductos', isAuthenticated,upload.single('file'), addProduct)
 
 
 

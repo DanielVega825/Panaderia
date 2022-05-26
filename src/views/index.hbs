@@ -14,45 +14,32 @@
       </div>
     </div>
     <!-- Main Content Area -->
-    <div class="container my-5 d-grid gap-5">
-      <div class="p-5 border">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus veniam ipsa earum quibusdam, atque ipsum error maiores
-          natus iusto fugit id saepe neque rerum magni laudantium accusantium
-          dolorem numquam quasi.
-        </p>
-      </div>
-      <div class="p-5 border">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus veniam ipsa earum quibusdam, atque ipsum error maiores
-          natus iusto fugit id saepe neque rerum magni laudantium accusantium
-          dolorem numquam quasi.
-        </p>
-      </div>
-      <div class="p-5 border">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus veniam ipsa earum quibusdam, atque ipsum error maiores
-          natus iusto fugit id saepe neque rerum magni laudantium accusantium
-          dolorem numquam quasi.
-        </p>
-      </div>
-      <div class="p-5 border">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus veniam ipsa earum quibusdam, atque ipsum error maiores
-          natus iusto fugit id saepe neque rerum magni laudantium accusantium
-          dolorem numquam quasi.
-        </p>
-      </div>
-      <div class="p-5 border">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus veniam ipsa earum quibusdam, atque ipsum error maiores
-          natus iusto fugit id saepe neque rerum magni laudantium accusantium
-          dolorem numquam quasi. df
-        </p>
+  
+    
+ 
+ <div class="container col-12">
+   <div class="row">
+    <div class="listado col-12 mt-4">
+      <h1 id="list">Productos</h1>
+    </div>
+    <br>
+
+      {{#each products}}
+      
+    <div class="col-sm-3 my-5">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center"><img id="img_obs" class="img-rounded mx-auto d-block m-4" src={{imgUrl}} width="150px" height="150px"></h5>
+        <p class="card-text"><label id="desayuno">{{name}}</label><br>${{unitaryPrice}}</p>
+        <p class="collapse" id="collapseExample">
+    Ver mas Respecto a este Articulo
+    
+  </p>
+        <p class="card-text text-center">
+        <a data-toggle="modal" data-target="#exampleModal3"  href="#" class="btn btn-primary">Añadir al Carrito</a>
+      </p>
       </div>
     </div>
+  </div>
+
+    {{/each}}

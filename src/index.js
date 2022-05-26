@@ -5,9 +5,20 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
+
+const bodyParser = require('body-parser')
+const productRoutes = require('./routes/notes')
+
 //Inicializaciones
 const app = express();
-require('./database');
+const db = require('./database');
+
+async function initDb () {
+    await db()
+}
+
+initDb()
+
 require('./config/passport');
 
 //configuraciones
@@ -45,6 +56,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+
 //Global Variables
 app.use((req,res,next) => {
     res.locals.success_msg = req.flash('success_msg');
@@ -53,10 +66,15 @@ app.use((req,res,next) => {
     res.locals.user = req.user || null;
     next();
 })
+
 // Routes
 app.use(require('./routes/index'));
-app.use(require('./routes/notes'));
+app.use(productRoutes)
 app.use(require('./routes/users'));
+app.use(require('./routes/empleadosRoutes'))
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
+
 
 app.get('users',(req,res) => {
     res.render('signup');
@@ -64,6 +82,9 @@ app.get('users',(req,res) => {
 
 // Static Files
 app.use(express.static(path.join(__dirname,'public')));
+app.use('/public', express.static(`${__dirname}/storage/img`))
+
+
 
 // Server is listenning
 app.listen(app.get('port'), () => {

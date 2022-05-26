@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+/*const mongoose = require('mongoose');
 
 const {Schema} = mongoose;
 const ProductoSchema = new Schema({
@@ -9,4 +9,29 @@ const ProductoSchema = new Schema({
     date: {type: Date, default: Date.now}
 }); 
 
-module.exports = mongoose.model('Producto',ProductoSchema);
+ProductoSchema.method.setImgUrl = function setImgUrl () {
+    
+}
+
+module.exports = mongoose.model('productos',ProductoSchema);*/
+
+const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
+
+const ProductSchema = Schema({
+    name: String,
+    size: Number,
+    unitaryPrice: Number,
+    imgUrl: String,
+    description: String
+},{
+    timestamps: true
+});
+
+ProductSchema.methods.setImgUrl = function setImgUrl (filename) {
+     
+    this.imgUrl = `http://localhost:3000/public/${filename}`
+}
+
+module.exports = mongoose.model('products', ProductSchema);
